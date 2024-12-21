@@ -2,32 +2,32 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
 const cors = require('cors');
+require('dotenv').config();
 const server = express();
 server.use(cors());
 server.use(bodyParser.json());
 
 
 //Etablir la connexion à la base de données
-const db = mysql.createConnection({
+const db = mysql.createPool({
 
-    host : "localhost",
-    user : "root",
-    password : "",
-    database : "dbsmschool",
-
+    host: process.env.DB_HOST, 
+    user: process.env.DB_USER, 
+    password: process.env.DB_PASSWORD, 
+    database: process.env.DB_NAME,
 });
 
-db.connect(function (error){
+/*db.connect(function (error){
     if (error){
         console.log("Error connecting to DB");
     } else {
         console.log("Successfully connected to DB");
     }
-});
+});*/
 
 
 //Configuration du port serveur 
-server.listen(8085, function check (error){
+server.listen(3001, function check (error){
     if (error) {
         console.log("Error..!");
     } else {
